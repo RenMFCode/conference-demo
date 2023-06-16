@@ -1,7 +1,8 @@
 package com.example.conferencedemo.models;
 
-import javax.persistence.*;
+import javax.persistence.Id;
 import java.util.List;
+import javax.persistence.*;
 
 @Entity(name = "sessions")
 public class Session {
