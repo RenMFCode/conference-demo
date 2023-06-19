@@ -4,7 +4,6 @@ import com.example.conferencedemo.models.Session;
 import com.example.conferencedemo.repositories.SessionRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -37,7 +36,7 @@ public class SessionsController {
         sessionRepository.deleteById(id);
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.PUT) //PUT replace all attributes, PATH allow update some fields. In this case all att needs to be in the request
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT) //PUT replaces all attributes, PATH allow update some fields. In this case all att needs to be in the request
     public Session update(@PathVariable Long id, @RequestBody Session session) {
         // Because this is a PUT, we expect all attributes to be passed in. A PATCH would only need
         //TODO Add validation that all attributes are passed in, otherwise return a 400 bad payload
