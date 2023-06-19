@@ -1,5 +1,8 @@
 package com.example.conferencedemo.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.Id;
 import java.util.List;
 import javax.persistence.*;
@@ -13,7 +16,9 @@ public class Session {
     private String session_description;
     private Integer session_length;
 
+
     @ManyToMany
+    @JsonBackReference // without this we are not receiving the response
     @JoinTable(
             name = "session_speakers",
             joinColumns = @JoinColumn(name = "session_id"),

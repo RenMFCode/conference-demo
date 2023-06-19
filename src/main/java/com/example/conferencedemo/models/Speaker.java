@@ -1,5 +1,6 @@
 package com.example.conferencedemo.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.util.List;
