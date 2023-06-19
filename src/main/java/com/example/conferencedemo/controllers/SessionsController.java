@@ -2,6 +2,7 @@ package com.example.conferencedemo.controllers;
 
 import com.example.conferencedemo.models.Session;
 import com.example.conferencedemo.repositories.SessionRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +26,24 @@ public class SessionsController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED) // The status that we want
+    //@ResponseStatus(HttpStatus.CREATED) // The status that we want
     public Session create(@RequestBody final Session session) {
         return sessionRepository.saveAndFlush(session);
+    }
+
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable Long id) {
+        //TODO: Also need to check for children records before deleting.
+        sessionRepository.deleteById(id);
+    }
+
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT) //PUT replace all attributes, PATH allow update some fields. In this case all att needs to be in the request
+    public Session update(@PathVariable Long id, @RequestBody Session session) {
+        // Because this is a PUT, we expect all attributes to be passed in. A PATCH would only need
+        //TODO Add validation that all attributes are passed in, otherwise return a 400 bad payload
+        Session existingSession = sessionRepository.getOne(id);
+        BeanUtils.copyProperties(session, existingSession, "session_id"); //Take the existing session and copy the existent session there. (ignore the PK, the ID)
+        return sessionRepository.saveAndFlush(existingSession);
     }
 
 }
