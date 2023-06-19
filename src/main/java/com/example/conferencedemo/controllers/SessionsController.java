@@ -6,6 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/sessions")
@@ -20,8 +21,8 @@ public class SessionsController {
 
     @GetMapping
     @RequestMapping("{id}")
-    public Session get(@PathVariable Long id) {
-        return sessionRepository.getOne(id);
+    public Optional<Session> get(@PathVariable Long id) {
+        return sessionRepository.findById(id);
     }
 
     @PostMapping

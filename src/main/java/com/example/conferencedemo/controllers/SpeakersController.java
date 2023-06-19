@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/speakers")
@@ -22,8 +23,8 @@ public class SpeakersController {
 
     @GetMapping
     @RequestMapping("{id}")
-    public Speaker get(@PathVariable Long id) {
-        return speakerRepository.getOne(id);
+    public Optional<Speaker> get(@PathVariable Long id) {
+        return speakerRepository.findById(id);
     }
 
     @PostMapping
