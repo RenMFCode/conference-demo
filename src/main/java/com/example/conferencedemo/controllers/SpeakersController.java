@@ -43,9 +43,9 @@ public class SpeakersController {
     public Speaker update(@PathVariable Long id, @RequestBody Speaker speaker) {
         // Because this is a PUT, we expect all attributes to be passed in. A PATCH would only need
         //TODO Add validation that all attributes are passed in, otherwise return a 400 bad payload
-        Speaker existingSpeaker = speakerRepository.getOne(id);
-        BeanUtils.copyProperties(speaker, existingSpeaker, "speaker_id"); //Take the existing session and copy the existent session there. (ignore the PK, the ID)
-        return speakerRepository.saveAndFlush(existingSpeaker);
+        Optional<Speaker> existingSpeaker = speakerRepository.findById(id);
+        BeanUtils.copyProperties(speaker, existingSpeaker.get(), "speaker_id"); //Take the existing session and copy the existent session there. (ignore the PK, the ID)
+        return speakerRepository.saveAndFlush(speaker);
     }
 
 }
