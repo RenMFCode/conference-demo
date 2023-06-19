@@ -1,10 +1,11 @@
 package com.example.conferencedemo.controllers;
 
-import com.example.conferencedemo.models.Session;
 import com.example.conferencedemo.models.Speaker;
 import com.example.conferencedemo.repositories.SpeakerRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,8 +43,11 @@ public class SpeakersController {
     @RequestMapping(value = "{id}", method = RequestMethod.PUT) //PUT replace all attributes, PATH allow update some fields. In this case all att needs to be in the request
     public Speaker update(@PathVariable Long id, @RequestBody Speaker speaker) {
         // Because this is a PUT, we expect all attributes to be passed in. A PATCH would only need
-        //TODO Add validation that all attributes are passed in, otherwise return a 400 bad payload
         Optional<Speaker> existingSpeaker = speakerRepository.findById(id);
+        //TODO Add validation that all attributes are passed in, otherwise return a 400 bad payload
+/*        if (speaker.getFirst_name().isEmpty() || speaker.getLast_name().isEmpty() || speaker.getTitle().isEmpty() || speaker.getCompany().isEmpty()) {
+            throw new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }*/
         BeanUtils.copyProperties(speaker, existingSpeaker.get(), "speaker_id"); //Take the existing session and copy the existent session there. (ignore the PK, the ID)
         return speakerRepository.saveAndFlush(speaker);
     }
