@@ -28,7 +28,7 @@ public class SpeakersController {
 
     @PostMapping
     //@ResponseStatus(HttpStatus.CREATED) // The status that we want
-    public Session create(@RequestBody final Speaker speaker) {
+    public Speaker create(@RequestBody final Speaker speaker) {
         return speakerRepository.saveAndFlush(speaker);
     }
 
