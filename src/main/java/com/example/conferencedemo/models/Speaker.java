@@ -19,7 +19,7 @@ public class Speaker {
     @Type(type="org.hibernate.type.BinaryType") //needed to hibernate deal with binary data
     private byte[] speaker_photo;
     @ManyToMany(mappedBy = "speakers")
-    private List<Speaker> sessions;
+    private List<Session> sessions;
 
     public Speaker() {
 
@@ -73,11 +73,11 @@ public class Speaker {
         this.speaker_bio = speaker_bio;
     }
 
-    public List<Speaker> getSessions() {
+    public List<Session> getSessions() {
         return sessions;
     }
 
-    public void setSessions(List<Speaker> sessions) {
+    public void setSessions(List<Session> sessions) {
         this.sessions = sessions;
     }
 
