@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 @Configuration
 public class PersistenceConfiguration {
     // Used to manage database transactions
+    // This code need to be commented when deploy a app in the cloud (the URL will break this - localhost)
     @Bean
     public DataSource dataSource() {
         DataSourceBuilder builder = DataSourceBuilder.create();
